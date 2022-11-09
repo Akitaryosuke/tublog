@@ -6,11 +6,57 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <%= yield %>
+    <%# サイドバーにヘッダーを表示　%>
+    <div class="row">
+      <div class="col-7">
+        <%= yield %>
+      </div>
+      <div class="col-5" style="margin-top:80px;">
+        <ul style="list-style: none;">
+          <% if customer_signed_in? %>
+            <li>
+              <%= link_to "トップ" %>
+            </li>
+            <li>
+              <%= link_to "マイページ" %>
+            </li>
+            <li>
+              <%= link_to "ログアウト", destroy_customer_session_path, method: :delete %>
+            </li>
+            <li>
+              <%= link_to "投稿する" %>
+            </li>
+          <% elsif admin_signed_in? %>
+           <li>
+              <%= link_to "トップ" %>
+            </li>
+            <li>
+              <%= link_to "ログアウト", destroy_admin_session_path, method: :delete %>
+            </li>
+            <li>
+              <%= link_to "会員一覧" %>
+            </li>
+          <% else %>
+            <li>
+              <%= link_to "トップ" %>
+            </li>
+            <li>
+              <%= link_to "マイページ" %>
+            </li>
+            <li>
+              <%= link_to "新規登録", new_customer_registration_path %>
+            </li>
+            <li>
+              <%= link_to "ログイン", new_customer_session_path %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
   </body>
 </html>
