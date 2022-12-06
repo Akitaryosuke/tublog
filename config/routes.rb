@@ -7,12 +7,32 @@ devise_for :customers,skip: [:passwords], controllers: {
   sessions: 'public/sessions'
 }
 
-# 管理者用
-# URL /admin/sign_in ...
-devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
-  sessions: "admin/sessions"
-}
 
 #ホーム画面
 root to: "public/homes#top"
+get 'search' => 'homes#search'
+  namespace :public do
+    resources :customers, only: [:index, :show, :edit, :update, :destroy] do
+      member do
+        get :favorites
+        get :shares
+        get :follows
+      end
+      resource :relationships, only: [:create, :destroy]
+      get 'followings', on: :member
+      get 'followers', on: :member
+    end
+    resources :posts, only: [:new, :show, :create, :destroy] do
+      collection do
+        get "search"
+      end
+      member do
+        get :lists
+      end
+      resource :favorites, only: [:create, :destroy]
+      resource :shares, only: [:create, :destroy]
+      resources :post_comments, only: [:create, :destroy]
+    end
+    resources :post_details, only: [:new, :show, :destroy]
+  end
 end

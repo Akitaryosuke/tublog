@@ -1,0 +1,17 @@
+<%# タイトルと本文を投稿 %>
+<div class="container">
+  <%= form_with model: @post, url: public_posts_path, method: :post do |f| %>
+  <%# タイトルは仮称とする、なにかいい案があれば変更する %>
+    <div style="margin-top:70px;">
+      <%= f.label :posted_text, "タイトル" %>
+      <%= f.text_area :posted_text, class:"form-control" %>
+    </div>
+    <div style="margin-top:30px;">
+      <%= f.label :blog, "本文" %>
+      <%= f.text_area :blog, class:"form-control", rows:"10" %>
+    </div>
+    <div class="row justify-content-center">
+      <%= f.submit '投稿', class:"btn btn-info mt-4", style:"width:150px;" %>
+    </div>
+  <% end %>
+</div>

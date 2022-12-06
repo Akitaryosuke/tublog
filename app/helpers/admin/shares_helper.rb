@@ -1,2 +1,0 @@
-module Admin::SharesHelper
-end

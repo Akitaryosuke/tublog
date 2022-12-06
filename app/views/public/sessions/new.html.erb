@@ -1,26 +1,32 @@
-<h2>Log in</h2>
-
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+<div class="container">
+  <div style="margin-top:30px; margin-bottom:50px;">
+    <div class="row d-flex justify-content-center align-items-center border font-weight-bold" style="font-size:20px; height:40px; width:150px;">ログイン</div>
   </div>
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
+  <%= form_with model: @customer, url: customer_session_path do |f| %>
+    <div class="form-group form-inline row font-weight-bold">
+      <%= f.label :メールアドレス, class: "col-3 d-flex justify-content-start" %>
+      <div class="field col-7">
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "col-auto form-control form-control-lg w-100" %>
+      </div>
+    </div>
 
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+    <div class="form-group form-inline row font-weight-bold">
+      <%= f.label :パスワード, class: "col-3 d-flex justify-content-start" %>
+      <div class="field col-7">
+        <%= f.password_field :password, autocomplete: "current-password", class: "col-auto form-control form-control-lg w-100" %>
+      </div>
+    </div>
+
+    <div class="actions col-5 font-weight-bold" style="margin-left:55px;">
+      <%= f.submit "ログイン", class: "offset-6 btn btn-success w-50", style: "font-size:20px;" %>
     </div>
   <% end %>
 
-  <div class="actions">
-    <%= f.submit "Log in" %>
+  <div class="row d-flex justify-content-center align-items-center border font-weight-bold" style="margin-top:50px; font-size:20px; height:40px; width:210px;">
+    登録済みでない方
   </div>
-<% end %>
-
-<%= render "public/shared/links" %>
+  <div class="lead font-weight-bold" style="margin-top:20px;">
+    <%= link_to "こちら", new_customer_registration_path, class: "offset-1" %>　から新規登録を行ってください。
+  </div>
+</div>

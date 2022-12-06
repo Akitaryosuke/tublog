@@ -4,6 +4,7 @@ class CreatePosts < ActiveRecord::Migration[6.1]
 
       t.integer :customer_id, null: false
       t.text    :posted_text, null: false
+      t.text    :blog,        null: false
 
       t.timestamps
     end

@@ -1,5 +1,65 @@
 <div class="container">
-  <div style="margin-top:30px; margin-left:180px;">
-    <div class="row d-flex justify-content-center align-items-center border font-weight-bold" style="font-size:20px; height:40px; width:150px;">トップ画面</div>
+  <div style="margin-top:20px; margin-bottom:20px;">
+    <div class="row d-flex justify-content-start align-items-center font-weight-bold" style="font-size:20px; height:40px;">トップ画面</div>
+  </div>
+  <div class="row border-bottom" style="width:560px; padding-bottom:10px;">
+    <% @posts.each do |post| %>
+    <div class="row col-12 border-top d-flex align-items-start" style="width:560px; margin-left:0px; margin-top:10px; padding-top:10px;">
+      <div class="col-2">
+        <div><%= image_tag post.customer.avater_image.variant(resize: "65x65^", gravity: "center", crop: "65x65+0+0").processed, style: "border-radius: 50%;" %></div>
+      </div>
+      <div class="col-9">
+        <div>
+          <%= link_to post.customer.name, public_customer_path(post.customer.id) %>
+        </div>
+        <div class="text-break">
+          <%= link_to post.posted_text, public_post_path(post.id) %>
+        </div>
+
+        <div class="row d-flex align-items-center" style="margin-left:3px;">
+          <div>
+            <% if post.favorited_by?(current_customer) %>
+              <div>
+                <%= link_to public_post_favorites_path(id: post.id, post_id: post.id), method: :delete do %>
+                  ♥<%= post.favorites.count %> いいね
+                <% end %>
+              </div>
+            <% else %>
+              <div>
+                <%= link_to public_post_favorites_path(id: post.id, post_id: post.id), method: :post do %>
+                  ♡<%= post.favorites.count %> いいね
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+
+          <div style="margin-left:80px;">
+            <% if post.shared_by?(current_customer) %>
+            <div>
+              <%= link_to public_post_shares_path(id: post.id, post_id: post.id), method: :delete do %>
+                <%= post.shares.count %> 共有
+              <% end %>
+            </div>
+          <% else %>
+            <div>
+              <%= link_to public_post_shares_path(id: post.id, post_id: post.id), method: :post do %>
+                <%= post.shares.count %> 共有
+              <% end %>
+            </div>
+          <% end %>
+          </div>
+
+          <div style="margin-left:80px;">
+            <div>
+              <%= link_to public_post_path(post.id) do %>
+                <%= post.post_comments.count %> コメント
+              <% end %>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <% end %>
   </div>
 </div>

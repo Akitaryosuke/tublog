@@ -12,50 +12,63 @@
 
   <body>
     <%# サイドバーにヘッダーを表示　%>
-    <div class="row">
-      <div class="col-7">
-        <%= yield %>
-      </div>
-      <div class="col-5" style="margin-top:80px;">
-        <ul style="list-style: none;">
-          <% if customer_signed_in? %>
-            <li>
-              <%= link_to "トップ" %>
-            </li>
-            <li>
-              <%= link_to "マイページ" %>
-            </li>
-            <li>
-              <%= link_to "ログアウト", destroy_customer_session_path, method: :delete %>
-            </li>
-            <li>
-              <%= link_to "投稿する" %>
-            </li>
-          <% elsif admin_signed_in? %>
-           <li>
-              <%= link_to "トップ" %>
-            </li>
-            <li>
-              <%= link_to "ログアウト", destroy_admin_session_path, method: :delete %>
-            </li>
-            <li>
-              <%= link_to "会員一覧" %>
-            </li>
-          <% else %>
-            <li>
-              <%= link_to "トップ" %>
-            </li>
-            <li>
-              <%= link_to "マイページ" %>
-            </li>
-            <li>
-              <%= link_to "新規登録", new_customer_registration_path %>
-            </li>
-            <li>
-              <%= link_to "ログイン", new_customer_session_path %>
-            </li>
+    <div class="container">
+      <div class="row">
+        <div class="row col-auto">
+
+          <%= yield %>
+        </div>
+        <div class="col-5 d-flex align-items-start flex-column mb-3" style="margin-top:80px; height:600px;">
+          <%= form_tag search_public_posts_path, :method => 'get' do %>
+            <p style="margin-left:40px;">
+              <%= text_field_tag :search, params[:search] %>
+              <%= submit_tag "Search", :name => nil %>
+            </p>
           <% end %>
-        </ul>
+          <ul style="list-style: none; margin-top:40px; margin-left:15px;">
+            <% if customer_signed_in? %>
+              <li class="row align-items-center border border-dark" style="height:40px; width:240px; margin-top:10px; border-radius:0.5em; padding-left: 10px;">
+                <%= link_to "トップ", root_path %>
+              </li>
+              <li class="row align-items-center border border-dark" style="height:40px; width:240px; margin-top:10px; border-radius:0.5em; padding-left: 10px;">
+                <%= link_to "マイページ", public_customer_path(current_customer.id) %>
+              </li>
+              <li class="row align-items-center border border-dark" style="height:40px; width:240px; margin-top:10px; border-radius:0.5em; padding-left: 10px;">
+                <%= link_to "ログアウト", destroy_customer_session_path, method: :delete %>
+              </li>
+              <li class="row align-items-center border border-dark" style="height:40px; width:240px; margin-top:10px; border-radius:0.5em; padding-left: 10px;">
+                <%= link_to "投稿する", new_public_post_path %>
+              </li>
+              <% if current_customer.admin? %>
+              <li class="row align-items-center border border-dark" style="height:40px; width:240px; margin-top:10px; border-radius:0.5em; padding-left: 10px;">
+                <%= link_to "会員一覧", public_customers_path %>
+              </li>
+              <% end %>
+            <% else %>
+              <li>
+                <%= link_to "トップ", root_path %>
+              </li>
+              <li>
+                <%= link_to "新規登録", new_customer_registration_path %>
+              </li>
+              <li>
+                <%= link_to "ログイン", new_customer_session_path %>
+              </li>
+            <% end %>
+          </ul>
+          <% if customer_signed_in? %>
+            <div class="row mt-auto align-items-center border border-dark" style="height:60px; width:240px; margin-top:10px; margin-left:40px;">
+              <%= image_tag current_customer.avater_image.variant(resize: "40x40^", gravity: "center", crop: "40x40+0+0").processed, style: "border-radius: 50%; margin-left:10px;" %>
+              <div style="margin-left: 10px;">
+                <%= current_customer.name %>
+              </div>
+            </div>
+          <% else %>
+            <div class="row justify-content-center mt-auto align-items-center border border-dark" style="height:60px; width:240px; margin-top:10px; margin-left:40px;">
+              <%= "ゲスト" %>
+            </div>
+          <% end %>
+        </div>
       </div>
     </div>
   </body>

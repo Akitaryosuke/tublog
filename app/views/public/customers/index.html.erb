@@ -1,0 +1,24 @@
+<div class="container">
+  <div style="margin-top:20px; margin-bottom:20px;">
+    <div class="row d-flex justify-content-start align-items-center font-weight-bold" style="font-size:20px; height:40px;">会員一覧</div>
+  </div>
+  <div class="row border-bottom" style="width:560px; padding-bottom:10px;">
+    <% @customers.each do |customer| %>
+    <div class="row col-12 border-top d-flex align-items-start" style="width:560px; margin-left:0px; margin-top:10px; padding-top:10px;">
+      <div class="row d-flex align-items-start" style="width:560px; margin-bottom:10px;">
+        <div class="col-2">
+          <div><%= image_tag customer.avater_image.variant(resize: "65x65^", gravity: "center", crop: "65x65+0+0").processed, style: "border-radius: 50%;" %></div>
+        </div>
+        <div class="col-9">
+          <div>
+            <%= link_to customer.name, public_customer_path(customer.id) %>
+          </div>
+          <div class="text-break">
+            <%= customer.introduction  %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>

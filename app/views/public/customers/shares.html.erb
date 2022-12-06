@@ -1,0 +1,10 @@
+<div class="container">
+  <div style="margin-top:30px;">
+    <div class="row d-flex justify-content-start align-items-center font-weight-bold" style="font-size:20px; height:40px;"><%= current_customer.name %>さんの共有</div>
+  </div>
+
+
+  <div class="row border-bottom" style="width:560px; padding-bottom:10px;">
+    <%= render partial: "public/posts/post", collection: @share_posts %>
+  </div>
+</div>
