@@ -1,8 +1,0 @@
-
-  <div>
-    <% customers.each do |customer| %>
-      <div><%= image_tag customer.get_avatar_image(120,120) %></div>
-      <div><%= link_to customer.name, admin_customer_path(customer.id) %></div>
-      <div><%= customer.introduction %></div>
-    <% end %>
-  </div>

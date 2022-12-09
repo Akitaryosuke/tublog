@@ -40,16 +40,16 @@
           </div>
 
           <div style="margin-left:80px;">
-            <% if @post.shared_by?(current_customer) %>
+          <% if @post.shared_by?(current_customer) %>
             <div>
               <%= link_to public_post_shares_path(@post), method: :delete do %>
-                <%= @post.shares.count %> 共有
+                ★<%= @post.shares.count %> 共有
               <% end %>
             </div>
           <% else %>
             <div>
               <%= link_to public_post_shares_path(@post), method: :post do %>
-                <%= @post.shares.count %> 共有
+                ☆<%= @post.shares.count %> 共有
               <% end %>
             </div>
           <% end %>
@@ -60,7 +60,7 @@
     <div class="col-12 border-top border-bottom" style="margin-top:15px; margin-bottom:10px; padding-top:15px; padding-left:30px; padding-bottom:10px;">
       <%= form_with model: [@post, @post_comment], url: public_post_post_comments_path(@post) do |f| %>
         <%= f.text_area :comment_text, placeholder: "コメントをここに", style: "width:390px;" %>
-        <%= f.submit "送信する", style: "margin-left:30px;" %>
+        <%= f.submit "送信", style: "margin-left:30px;" %>
       <% end %>
     </div>
     <% @post.post_comments.each do |post_comment| %>

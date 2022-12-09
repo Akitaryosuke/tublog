@@ -35,16 +35,16 @@
           </div>
 
           <div style="margin-left:80px;">
-            <% if post.shared_by?(current_customer) %>
+          <% if post.shared_by?(current_customer) %>
             <div>
               <%= link_to public_post_shares_path(id: post.id, post_id: post.id), method: :delete do %>
-                <%= post.shares.count %> 共有
+                ★<%= post.shares.count %> 共有
               <% end %>
             </div>
           <% else %>
             <div>
               <%= link_to public_post_shares_path(id: post.id, post_id: post.id), method: :post do %>
-                <%= post.shares.count %> 共有
+                ☆<%= post.shares.count %> 共有
               <% end %>
             </div>
           <% end %>

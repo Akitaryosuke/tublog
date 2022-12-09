@@ -16,6 +16,48 @@
           <div class="text-break">
             <%= link_to post.posted_text, public_post_path(post.id) %>
           </div>
+
+          <div class="row d-flex align-items-center" style="margin-left:3px;">
+            <div>
+              <% if post.favorited_by?(current_customer) %>
+                <div>
+                  <%= link_to public_post_favorites_path(id: post.id, post_id: post.id), method: :delete do %>
+                    ♥<%= post.favorites.count %> いいね
+                  <% end %>
+                </div>
+              <% else %>
+                <div>
+                  <%= link_to public_post_favorites_path(id: post.id, post_id: post.id), method: :post do %>
+                    ♡<%= post.favorites.count %> いいね
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
+
+            <div style="margin-left:80px;">
+            <% if post.shared_by?(current_customer) %>
+              <div>
+                <%= link_to public_post_shares_path(id: post.id, post_id: post.id), method: :delete do %>
+                  ★<%= post.shares.count %> 共有
+                <% end %>
+              </div>
+            <% else %>
+              <div>
+                <%= link_to public_post_shares_path(id: post.id, post_id: post.id), method: :post do %>
+                  ☆<%= post.shares.count %> 共有
+                <% end %>
+              </div>
+            <% end %>
+            </div>
+
+            <div style="margin-left:80px;">
+              <div>
+                <%= link_to public_post_path(post.id) do %>
+                  <%= post.post_comments.count %> コメント
+                <% end %>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     <% end %>
