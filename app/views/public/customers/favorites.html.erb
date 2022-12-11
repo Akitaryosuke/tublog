@@ -3,7 +3,9 @@
     <div class="row d-flex justify-content-start align-items-center font-weight-bold" style="font-size:20px; height:40px;"><%= @customer.name %>さんのいいね</div>
   </div>
 
-  <div class="row border-bottom" style="width:560px; padding-bottom:10px;">
+  <div style="width:560px; height:650px; padding-bottom:10px; overflow:auto;">
+    <div class="row border-bottom">
     <%= render partial: "public/posts/post", collection: @favorite_posts %>
+    </div>
   </div>
 </div>

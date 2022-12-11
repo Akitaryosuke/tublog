@@ -1,10 +1,12 @@
 <div class="container">
-  <div style="margin-top:20px; margin-bottom:20px;">
+  <div style="margin-top:30px; margin-bottom:20px;">
     <div class="row d-flex justify-content-start align-items-center font-weight-bold" style="font-size:20px; height:40px;">トップ画面</div>
   </div>
-  <div class="row border-bottom" style="width:560px; padding-bottom:10px;">
+
+  <div style="width:560px; height:650px; padding-bottom:10px; overflow:auto;">
+    <div class="row border-bottom">
     <% @posts.each do |post| %>
-    <div class="row col-12 border-top d-flex align-items-start" style="width:560px; margin-left:0px; margin-top:10px; padding-top:10px;">
+      <div class="row col-12 border-top d-flex align-items-start" style="width:560px; margin-left:0px; margin-top:10px; padding-top:10px;">
       <div class="col-2">
         <div><%= image_tag post.customer.avater_image.variant(resize: "65x65^", gravity: "center", crop: "65x65+0+0").processed, style: "border-radius: 50%;" %></div>
       </div>
@@ -61,5 +63,6 @@
       </div>
     </div>
     <% end %>
+    </div>
   </div>
 </div>
