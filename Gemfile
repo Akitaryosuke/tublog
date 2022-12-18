@@ -58,7 +58,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 #デバイスをインストール
 gem 'devise'
 gem 'ransack'
-gem 'net-smtp'
 gem 'dotenv-rails'
 group :production do
   gem 'mysql2'
