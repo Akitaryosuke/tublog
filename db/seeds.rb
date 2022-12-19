@@ -12,6 +12,3 @@ Customer.create!(
   password: 'testtest',
   admin: true
 )
-
-  customer.header_image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpg')
-  customer.avater_image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpg')

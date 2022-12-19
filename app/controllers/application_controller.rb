@@ -8,6 +8,10 @@ class ApplicationController < ActionController::Base
     @posts = Post.search(params[:search])
   end
 
+  def after_sign_in_path_for(resource)
+    public_customer_path(current_customer.id)
+  end
+
 protected
 
   def configure_permitted_parameters
