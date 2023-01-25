@@ -19,8 +19,11 @@ class Public::PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     @post.customer_id = current_customer.id
-    @post.save
-    redirect_to root_path
+    if @post.save
+      redirect_to root_path
+    else
+      redirect_to request.referer
+    end
   end
 
   def destroy

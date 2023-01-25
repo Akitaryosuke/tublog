@@ -4,6 +4,8 @@ class Post < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :shares, dependent: :destroy
   has_many :post_comments, dependent: :destroy
+  validates :posted_text, presence: true
+  validates :blog, presence: true
 
   def favorited_by?(customer)
     favorites.exists?(customer_id: customer)
