@@ -1,7 +1,7 @@
 class Public::HomesController < ApplicationController
 
   def top
-    @posts = Post.all
+    @posts = Post.all.order(created_at: :desc)
     @customers = Customer.all
     @customer = Customer.find_by(params[:customer_id])
   end

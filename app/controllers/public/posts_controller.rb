@@ -7,7 +7,7 @@ class Public::PostsController < ApplicationController
   end
 
   def lists
-    @posts = Post.where(customer_id: @customer.id)
+    @posts = Post.where(customer_id: @customer.id).order(created_at: :desc)
     @customers = Customer.all
   end
 
