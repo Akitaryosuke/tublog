@@ -1,6 +1,6 @@
 class Public::CustomersController < ApplicationController
   before_action :set_customer,    only: [:favorites, :shares]
-  before_action :current_customer,only: [:edit, :update]
+  before_action :correct_customer,only: [:edit, :update]
 
   def index
     @customers = Customer.all
@@ -11,8 +11,13 @@ class Public::CustomersController < ApplicationController
   end
 
   def edit
-    @customer = Customer.find(params[:id])
-    render layout: 'no_sidebar'
+    if params[:id] == current_customer.id
+      @customer = Customer.find(params[:id])
+      render action: :edit
+    else
+      @customer = current_customer
+      render action: :edit, layout: 'no_sidebar'
+    end
   end
 
   def update
@@ -58,6 +63,11 @@ private
 
   def set_customer
     @customer = Customer.find(params[:id])
+  end
+  
+  def correct_customer
+    @customer = Customer.find(params[:id])
+    redirect_to(public_customer_path(current_customer.id)) unless @customer == current_customer
   end
 
 end
