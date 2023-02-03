@@ -15,6 +15,11 @@ class Public::PostsController < ApplicationController
     @post = Post.find(params[:id])
     @post_comment = PostComment.new
   end
+  
+  def edit
+    @post = Post.find(params[:id])
+    render layout: 'no_sidebar'
+  end
 
   def create
     @post = Post.new(post_params)
@@ -23,6 +28,15 @@ class Public::PostsController < ApplicationController
       redirect_to root_path
     else
       redirect_to request.referer
+    end
+  end
+  
+  def update
+    @post = Post.find(params[:id])
+    if @post.update(post_params)
+      redirect_to public_post_path(@post.id)
+    else
+      render :edit
     end
   end
 

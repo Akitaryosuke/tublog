@@ -22,7 +22,7 @@ get 'search' => 'homes#search'
       get 'followings', on: :member
       get 'followers', on: :member
     end
-    resources :posts, only: [:new, :show, :create, :destroy] do
+    resources :posts, only: [:new, :show, :edit, :create, :update, :destroy] do
       collection do
         get "search"
       end
